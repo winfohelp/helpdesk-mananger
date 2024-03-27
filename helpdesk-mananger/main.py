@@ -60,5 +60,12 @@ cliente = {
     "whatsapp": "WhatsApp do Cliente",
     "foto_do_equipamento": "Foto do Equipamento"
 }
-id = ordem.criar_ordem(cliente, "Problema Informado", "Solução", 100.0, "Serviço Realizado")
-print(id)  # Imprime o ID único da ordem de serviço
+
+
+def main():
+    id = ordem.criar_ordem(cliente, "Problema Informado", "Solução", 100.0, "Serviço Realizado")
+    print(id)  # Imprime o ID único da ordem de serviço
+
+
+if __name__ == '__main__': # permite a execução deste módulo como script
+    main()
