@@ -2,7 +2,7 @@ import uuid
 from typing import Dict
 from storages import SQLite
 
-DB = "helpdesk_manager.db"
+DB = "helpdesk_manager.db" 
 CREATE_TABLE = """
             CREATE TABLE IF NOT EXISTS ordens (
                 id TEXT PRIMARY KEY,
@@ -15,9 +15,11 @@ CREATE_TABLE = """
         """
 TIKET = """INSERT INTO ordens VALUES (?, ?, ?, ?, ?, ?)"""
 SELECT_ORDER = """SELECT * FROM ordens WHERE id = ?"""
-        
+ 
         
 class Tiket:
+    """ Pretende simular a criação de tikets para ordem de serviço."""
+    
     def __init__(self, db_path: str):
         self.db_path = db_path
         self.db = SQLite(self.db_path)
@@ -25,10 +27,13 @@ class Tiket:
         self.cursor = self.db.cursor(self.conn)
         
     def create_table(self, query):
+        """ Cria a estrutura de banco de dados
+        """
         self.conn.execute(query)
         return
     
-    def criate_tiket(self, cliente: Dict, problema: str, solucao: str, valor: float, servico_realizado: str):
+    def create_tiket(self, cliente: Dict, problema: str, solucao: str, valor: float, servico_realizado: str):
+        """ Responsavel por criar tikets"""
         id = str(uuid.uuid4())
         self.cursor.execute(TIKET, (id, str(cliente), problema, solucao, valor, servico_realizado))
         self.conn.commit()
@@ -57,8 +62,6 @@ class Tiket:
             print("Ordem de serviço não encontrada")
             return
 
-        # Adicione aqui o código para imprimir a ordem de serviço
-        pass
 
 # Exemplo de uso
 tiket = Tiket(DB)
@@ -67,13 +70,12 @@ client = {
     "endereco": "Endereço do Cliente",
     "telefone": "Telefone do Cliente",
     "whatsapp": "WhatsApp do Cliente",
-    "foto_do_equipamento": "Foto do Equipamento"
+    "foto_do_equipamento": "Foto do Equipamento",
 }
-
 
 def main():
     create_tables = tiket.create_table(CREATE_TABLE)
-    id = tiket.criate_tiket(client, "Problema Informado", "Solução", 100.0, "Serviço Realizado")
+    id = tiket.create_tiket(client, "Problema Informado", "Solução", 100.0, "Serviço Realizado")
     print(id)  # Imprime o ID único da ordem de serviço
 
 
