@@ -1,6 +1,6 @@
 import sqlite3
 
-class SQlite:
+class SQLite:
     def __init__(self, db_path: str):
         self.db_path = db_path
     
@@ -11,7 +11,9 @@ class SQlite:
     def cursor(self, conn):
         return conn.cursor()
     
-    def execute(self, cursor, query):
+    def execute(self, cursor, query, value=()):
+        if value:
+             return cursor.execute(query, value)
         return cursor.execute(query)
     
     
@@ -26,12 +28,12 @@ QUERY = """
             )
         """
 
-DB_PATH = "inmemory.db"
+# DB_PATH = "inmemory.db"
 
-db = SQlite(DB_PATH)
+# db = SQlite(DB_PATH)
 
-conn = db.connect()
+# conn = db.connect()
 
-cursor = db.cursor(conn)
+# cursor = db.cursor(conn)
 
-insert = db.execute(cursor,QUERY)
+# insert = db.execute(cursor,QUERY)
